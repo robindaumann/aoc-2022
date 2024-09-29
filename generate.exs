@@ -19,16 +19,16 @@ unless File.exists?(test_file) do
   IO.puts("Created test file.")
 end
 
-input_file = "input/day_#{day}.txt"
+input_file = ~c"input/day_#{day}.txt"
 unless File.exists?(input_file) do
   :inets.start()
   :ssl.start()
 
   url_day = String.trim_leading(day, "0")
-  url = "https://adventofcode.com/2022/day/#{url_day}/input"
+  url = ~c"https://adventofcode.com/2022/day/#{url_day}/input"
 
   cookie = File.read!("cookie.txt")
-  headers = [{"Cookie", "session=#{cookie}"}]
+  headers = [{~c"Cookie", ~c"session=#{cookie}"}]
 
   {:ok, :saved_to_file} = :httpc.request(:get, {url, headers}, [], [{:stream, input_file}])
   IO.puts("Created input file.")
